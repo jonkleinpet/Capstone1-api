@@ -6,6 +6,7 @@ const isError = require('../../validation/isError');
 const foundPosts = require('../../validation/foundPosts');
 const findPost = require('../../validation/findPost');
 
+// GET all blog posts
 postsRoutes
   .route('/')
   .get((req, res, next) => {
@@ -20,6 +21,7 @@ postsRoutes
       .then(next);
   })
 
+  // POST a blog
   .post(bodyParser, (req, res, next) => {
     const knex = req.app.get('db');
     const data = req.body;
@@ -32,6 +34,7 @@ postsRoutes
         .then(next);
   });
 
+// GET a single blog post
 postsRoutes
   .route('/:id')
   .get((req, res, next) => {
@@ -45,8 +48,6 @@ postsRoutes
       })
       .then(next);
   });
-
-
 
 
 module.exports = postsRoutes;

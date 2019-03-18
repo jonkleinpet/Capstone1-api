@@ -2,16 +2,18 @@
 
   "name": "laruie-blog-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "Capstone 1 for Thinkful",
   "main": "index.js",
   "scripts": {
     "test": "mocha --require test/setup.js",
     "dev": "nodemon src/server.js",
+    "migrate-production": "postgrator --config postgrator-production-config.js",
     "migrate": "postgrator --config postgrator-config.js",
     "start": "node src/server.js",
     "predeploy": "npm audit",
     "deploy": "git push heroku master"
   },
+
   "keywords": [],
   "author": "Jonathan Kleinpeter",
   "license": "ISC",
@@ -29,6 +31,7 @@
     "treeize": "^2.1.2",
     "xss": "^1.0.3"
   },
+  
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^6.0.1",

@@ -5,6 +5,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV, API_KEY } = require('./config');
 const postsRoutes = require('./posts/postsRoutes');
+const authRoutes = require('./auth/authRoutes');
 
 const app = express();
 
@@ -12,10 +13,12 @@ const morganOption = (NODE_ENV === 'production')
   ? 'tiny'
   : 'common';
 
+// http and current environment server middleware
 app.use(morgan(morganOption, { skip: () => NODE_ENV === 'test' }));
 app.use(helmet());
 app.use(cors());
 
+// generic error handling
 function errorHandler(error, req, res, next) {
   let response;
   if (NODE_ENV === 'production') {
@@ -27,19 +30,10 @@ function errorHandler(error, req, res, next) {
   res.status(500).json(response);
 }
 
-function apiValidation(req, res, next) {
-  const apiToken = API_KEY;
-  const authToken = req.get('Authorization');
+// api middleware
 
-  if (!authToken || authToken.split(' ')[1] !== apiToken) {
-    return res.status(401).json({ error: 'Unauthorized request' });
-  }
-  next();
-}
-
-app.use(errorHandler);
-app.use(apiValidation);
-
+app.use('/api/auth', authRoutes);
 app.use('/api/posts', postsRoutes);
+app.use(errorHandler);
 
 module.exports = app;
