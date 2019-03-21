@@ -2,11 +2,10 @@ const express = require('express');
 const authRoutes = express.Router();
 const bodyParser = express.json();
 const authService = require('./authService');
-const requireAuth = require('./jwt-auth');
 
 // POST authenticate user
 authRoutes
-  .post('/', bodyParser, (req, res, next) => {
+  .post('/login', bodyParser, (req, res, next) => {
     const { name, password } = req.body;
     const loginUser = { name, password };
     const knex = req.app.get('db');
@@ -34,12 +33,12 @@ authRoutes
               return res.status(400).json({ error: 'Incorrect user name or password' });
             }
 
-            const sub = user.name;
+            const sub = loginUser.name;
             const payload = {
               id: user.id,
               admin: user.admin
             };
-
+        
             res.send({ authToken: authService.createjwt(sub, payload) });
           });     
       })

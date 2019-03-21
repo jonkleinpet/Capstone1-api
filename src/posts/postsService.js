@@ -21,11 +21,13 @@ const postsService = {
   createPost(db, newPost) {
     newPost = sanitize(newPost);
     return db
+      .select('*')
+      .from('posts')
       .insert(newPost)
       .into('posts')
       .returning('*')
-      .then(rows => {
-        return rows[0];
+      .then(() => {
+        return db.select('*').from('posts');
       });
   },
   

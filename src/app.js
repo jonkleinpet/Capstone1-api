@@ -5,6 +5,9 @@ const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV, API_KEY } = require('./config');
 const postsRoutes = require('./posts/postsRoutes');
+const adminRoutes = require('./admin/adminRoutes');
+const userRoutes = require('./user/userRoutes');
+const commentsRoutes = require('./comments/commentsRoutes');
 const authRoutes = require('./auth/authRoutes');
 
 const app = express();
@@ -33,7 +36,10 @@ function errorHandler(error, req, res, next) {
 // api middleware
 
 app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/posts', postsRoutes);
+app.use('/api/comments', commentsRoutes);
 app.use(errorHandler);
 
 module.exports = app;

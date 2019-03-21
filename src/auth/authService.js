@@ -21,11 +21,17 @@ const authService = {
     });
   },
 
+  getUserId(token) {
+    const user = jwt.decode(token.slice(7, token.length));
+    const user_id = user.id;
+    return user_id;
+  },
+
   verifyJwt(token) {
     return jwt.verify(token, config.JWT_SECRET, {
       algorithm: ['HS256']
     });
-  }
+  },
 
 };
 

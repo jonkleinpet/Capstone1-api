@@ -5,6 +5,7 @@ const bodyParser = express.json();
 const isError = require('../../validation/isError');
 const foundPosts = require('../../validation/foundPosts');
 const findPost = require('../../validation/findPost');
+const requireAuth = require('../auth/jwt-auth').requireAuth;
 
 // GET all blog posts
 postsRoutes
@@ -19,17 +20,20 @@ postsRoutes
           : res.status(404).send({ message: 'Cannot find posts' });
       })
       .then(next);
-  })
+  });
 
-  // POST a blog
+// POST a blog
+postsRoutes
+  .route('/blog')
+  .all(requireAuth)
   .post(bodyParser, (req, res, next) => {
     const knex = req.app.get('db');
     const data = req.body;
     isError(data)
       ? res.status(400).send({ message: 'Content required' }) 
       : postsService.createPost(knex, data)
-        .then(data => {
-          res.status(201).send(data);
+        .then(post => {
+          res.status(201).json(post);
         })
         .then(next);
   });
