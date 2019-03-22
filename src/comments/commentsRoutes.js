@@ -27,7 +27,6 @@ commentsRoutes
     const token = req.headers.authorization;
     const user_id = authSerice.getUserId(token);
     const { content, post_id } = req.body;
-    console.log(post_id)
     const newComment = {
       post_id,
       user_id,
@@ -35,7 +34,10 @@ commentsRoutes
     };
     const knex = req.app.get('db');
     commentService.postComment(knex, newComment)
-      .then(comments => res.status(201).json(comments))
+      .then(comments => {
+        console.log(comments);
+        res.status(201).json(comments);
+      })
       .catch(next);
   });
 

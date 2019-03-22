@@ -4,7 +4,7 @@ const sanitize = function (post) {
 
   return {
     id: post.id,
-    content: post.content,
+    content: xss(post.content),
     date_added: post.date_added
   };
 
@@ -25,7 +25,6 @@ const postsService = {
       .from('posts')
       .insert(newPost)
       .into('posts')
-      .returning('*')
       .then(() => {
         return db.select('*').from('posts');
       });
