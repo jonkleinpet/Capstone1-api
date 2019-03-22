@@ -2,7 +2,6 @@ const express = require('express');
 const commentsRoutes = express.Router();
 const commentService = require('./commentService');
 const authSerice = require('../auth/authService');
-const jwt = require('jsonwebtoken');
 const bodyParser = express.json();
 
 commentsRoutes
@@ -35,7 +34,6 @@ commentsRoutes
     const knex = req.app.get('db');
     commentService.postComment(knex, newComment)
       .then(comments => {
-        console.log(comments);
         res.status(201).json(comments);
       })
       .catch(next);

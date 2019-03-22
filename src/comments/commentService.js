@@ -36,11 +36,8 @@ const commentService = {
       .into('comments')
       .returning('*')
       .then(rows => {
-        return rows[0]
+        return rows[0];
       });
-      /* .then(() => {
-        return db.select('*').from('comments');
-      }); */
   }
 
 };
