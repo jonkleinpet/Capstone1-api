@@ -9,6 +9,7 @@ const adminRoutes = require('./admin/adminRoutes');
 const userRoutes = require('./user/userRoutes');
 const commentsRoutes = require('./comments/commentsRoutes');
 const authRoutes = require('./auth/authRoutes');
+const cloudinaryRoutes = require('./cloudinary/cloudinaryRoutes');
 
 const app = express();
 
@@ -22,7 +23,7 @@ app.use(helmet());
 app.use(cors());
 
 // generic error handling
-function errorHandler(error, req, res, next) {
+function errorHandler(error, req, res) {
   let response;
   if (NODE_ENV === 'production') {
     response = { error: { message: 'server error' } };
@@ -40,6 +41,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postsRoutes);
 app.use('/api/comments', commentsRoutes);
+app.use('/api/cloudinary', cloudinaryRoutes);
 app.use(errorHandler);
 
 module.exports = app;

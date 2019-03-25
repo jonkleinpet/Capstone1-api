@@ -19,7 +19,7 @@ const postsService = {
   },
 
   createPost(db, newPost) {
-    newPost = sanitize(newPost);
+    //newPost = sanitize(newPost);
     return db
       .select('*')
       .from('posts')
