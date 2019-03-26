@@ -33,8 +33,8 @@ commentsRoutes
     };
     const knex = req.app.get('db');
     commentService.postComment(knex, newComment)
-      .then(comments => {
-        res.status(201).json(comments);
+      .then(comment => {
+        res.status(201).json(comment);
       })
       .catch(next);
   });
