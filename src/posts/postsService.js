@@ -25,8 +25,9 @@ const postsService = {
       .from('posts')
       .insert(newPost)
       .into('posts')
-      .then(() => {
-        return db.select('*').from('posts');
+      .returning('*')
+      .then(rows => {
+        return rows[0];
       });
   },
   

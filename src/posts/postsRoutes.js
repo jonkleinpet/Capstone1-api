@@ -33,7 +33,7 @@ postsRoutes
       ? res.status(400).send({ message: 'Content required' }) 
       : postsService.createPost(knex, data)
         .then(post => {
-          res.status(201).json(post);
+          res.status(201).send(post);
         })
         .then(next);
   });
