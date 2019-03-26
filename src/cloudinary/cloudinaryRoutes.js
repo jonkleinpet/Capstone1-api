@@ -7,13 +7,12 @@ cloudinaryRoutes
   .route('/')
   .post(bodyParser, (req, res, next) => {
     const knex = req.app.get('db');
-    console.log(req.body)
     const { public_id, url } = req.body;
     const img = {
       public_id,
       url
     };
-    console.log(img)
+    
     cloudinaryService.postImageUrl(knex, img)
       .then(result => {
         console.log(result);
