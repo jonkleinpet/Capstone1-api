@@ -3,8 +3,8 @@ CREATE TABLE IF NOT EXISTS users (
   admin BOOLEAN default FALSE,
   user_name TEXT not null,
   full_name TEXT not null,
-  date_created TIMESTAMP NOT NULL DEFAULT now(),
-  date_modified TIMESTAMP,
+  date_created TIMESTAMP DEFAULT now() NOT NULL,
+  date_modified TIMESTAMP DEFAULT null,
   password TEXT NOT NULL
 );
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const commentsRoutes = express.Router();
 const commentService = require('./commentService');
-const authSerice = require('../auth/authService');
+const authService = require('../auth/authService');
 const bodyParser = express.json();
 
 commentsRoutes
@@ -22,9 +22,10 @@ commentsRoutes
       })
       .catch(next);
   })
+  
   .post(bodyParser, (req, res, next) => {
     const token = req.headers.authorization;
-    const user_id = authSerice.getUserId(token);
+    const user_id = authService.getUserId(token);
     const { content, post_id } = req.body;
     const newComment = {
       post_id,

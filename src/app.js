@@ -3,9 +3,8 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
-const { NODE_ENV, API_KEY } = require('./config');
+const { NODE_ENV } = require('./config');
 const postsRoutes = require('./posts/postsRoutes');
-const adminRoutes = require('./admin/adminRoutes');
 const userRoutes = require('./user/userRoutes');
 const commentsRoutes = require('./comments/commentsRoutes');
 const authRoutes = require('./auth/authRoutes');
@@ -23,20 +22,19 @@ app.use(helmet());
 app.use(cors());
 
 // generic error handling
-function errorHandler(error, res) {
+function errorHandler(req, res, error) {
   let response;
   if (NODE_ENV === 'production') {
     response = { error: { message: 'server error' } };
   } else {
-    response = { message: error.message, error };
+    response = { message: error };
   }
-  res.status(500).json(response);
+  res.status(500).send(response);
 }
 
 // api middleware
 
 app.use('/api/auth', authRoutes);
-app.use('/api/admin', adminRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postsRoutes);
 app.use('/api/comments', commentsRoutes);

@@ -3,6 +3,6 @@ CREATE TABLE IF NOT EXISTS comments (
   post_id INTEGER REFERENCES posts(id) NOT NULL, 
   user_id INTEGER REFERENCES users(id) NOT NULL,
   content TEXT NOT NULL,
-  date_created TIMESTAMP NOT NULL default now(),
-  date_modified TIMESTAMP
+  date_created TIMESTAMP DEFAULT now() NOT NULL,
+  date_modified TIMESTAMP DEFAULT null
 );

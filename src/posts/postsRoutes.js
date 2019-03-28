@@ -2,9 +2,9 @@ const express = require('express');
 const postsRoutes = express.Router();
 const postsService = require('./postsService');
 const bodyParser = express.json();
-const isError = require('../../validation/isError');
-const foundPosts = require('../../validation/foundPosts');
-const findPost = require('../../validation/findPost');
+const isError = require('../../validation/postsValidation/isError');
+const foundPosts = require('../../validation/postsValidation/foundPosts');
+const findPost = require('../../validation/postsValidation/findPost');
 const requireAuth = require('../auth/jwt-auth').requireAuth;
 
 // GET all blog posts
