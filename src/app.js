@@ -21,14 +21,6 @@ app.use(morgan(morganOption, { skip: () => NODE_ENV === 'test' }));
 app.use(helmet());
 app.use(cors());
 
-// generic error handling
-function errorHandler(req, res, error) {
-  let response;
-  if (NODE_ENV === 'production') {
-    response = { error: { message: 'server error' } };
-  }
-}
-
 // api middleware
 
 app.use('/api/auth', authRoutes);
@@ -36,6 +28,5 @@ app.use('/api/users', userRoutes);
 app.use('/api/posts', postsRoutes);
 app.use('/api/comments', commentsRoutes);
 app.use('/api/cloudinary', cloudinaryRoutes);
-app.use(errorHandler);
 
 module.exports = app;

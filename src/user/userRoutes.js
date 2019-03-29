@@ -3,6 +3,7 @@ const userRoutes = express.Router();
 const userService = require('./userService');
 const bodyParser = express.json();
 
+// POST user register
 userRoutes
   .route('/')
   .post(bodyParser, (req, res, next) => {

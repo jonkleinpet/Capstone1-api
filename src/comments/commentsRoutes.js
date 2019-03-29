@@ -4,6 +4,7 @@ const commentService = require('./commentService');
 const authService = require('../auth/authService');
 const bodyParser = express.json();
 
+// GET all comments
 commentsRoutes
   .route('/')
   .get((req, res, next) => {
@@ -23,6 +24,7 @@ commentsRoutes
       .catch(next);
   })
   
+  // POST a comment
   .post(bodyParser, (req, res, next) => {
     const token = req.headers.authorization;
     const user_id = authService.getUserId(token);
@@ -40,6 +42,7 @@ commentsRoutes
       .catch(next);
   });
 
+// DELETE a comment
 commentsRoutes
   .route('/:comment_id')
   .delete((req, res) => {
