@@ -35,9 +35,18 @@ commentsRoutes
     const knex = req.app.get('db');
     commentService.postComment(knex, newComment)
       .then(comment => {
-        res.status(201).json(comment);
+        res.status(201).json(commentService.serializeComments(comment));
       })
       .catch(next);
+  });
+
+commentsRoutes
+  .route('/:comment_id')
+  .delete((req, res) => {
+    const knex = req.app.get('db');
+    const { comment_id } = req.params;
+    commentService.deleteComment(knex, comment_id)
+      .then(comment_id => res.status(200).send({ comment_id }));
   });
 
 module.exports = commentsRoutes;

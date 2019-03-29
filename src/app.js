@@ -26,10 +26,7 @@ function errorHandler(req, res, error) {
   let response;
   if (NODE_ENV === 'production') {
     response = { error: { message: 'server error' } };
-  } else {
-    response = { message: error };
   }
-  res.status(500).send(response);
 }
 
 // api middleware
