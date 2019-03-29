@@ -31,6 +31,8 @@ framework and pg database "https://www.postgresql.org"
 
 image hosting from "https://cloudinary.com".
 
+deployed on "https://heroku.com"
+
 ## Test Suite
 Mocha: "https://mochajs.org/"
 
