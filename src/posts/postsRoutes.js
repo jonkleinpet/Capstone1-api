@@ -4,7 +4,6 @@ const postsService = require('./postsService');
 const bodyParser = express.json();
 const isError = require('../../validation/postsValidation/isError');
 const foundPosts = require('../../validation/postsValidation/foundPosts');
-const findPost = require('../../validation/postsValidation/findPost');
 const requireAuth = require('../auth/jwt-auth').requireAuth;
 
 // GET all blog posts
@@ -30,7 +29,7 @@ postsRoutes
     const knex = req.app.get('db');
     const data = req.body;
     isError(data)
-      ? res.status(400).send({ message: 'Content required' }) 
+      ? res.status(400).send({ message: 'Content required' })
       : postsService.createPost(knex, data)
         .then(post => {
           res.status(201).send(post);
@@ -38,20 +37,19 @@ postsRoutes
         .then(next);
   });
 
-// GET a single blog post
+// DELETE a blog post
 postsRoutes
-  .route('/:id')
-  .get((req, res, next) => {
-    const knex = req.app.get('db');
+  .route('/blog/:id')
+  .delete((req, res, next) => {
     const { id } = req.params;
-    postsService.getPost(knex, parseInt(id))
-      .then(result => {
-        findPost(result)
-          ? res.status(200).send(result)
-          : res.status(404).send({ message: 'Cannot find blog post' });
-      })
-      .then(next);
+    const knex = req.app.get('db');
+    postsService.deletePost(knex, id)
+      .then(id => {
+        res.status(200).send({ id });
+      });
   });
+
+
 
 
 module.exports = postsRoutes;

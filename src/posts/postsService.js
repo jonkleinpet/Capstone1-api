@@ -1,15 +1,3 @@
-const xss = require('xss');
-
-const sanitize = function (post) {
-
-  return {
-    id: post.id,
-    content: xss(post.content),
-    date_added: post.date_added
-  };
-
-};
-
 const postsService = {
 
   getAllPosts(db) {
@@ -19,7 +7,6 @@ const postsService = {
   },
 
   createPost(db, newPost) {
-    //newPost = sanitize(newPost);
     return db
       .select('*')
       .from('posts')
@@ -31,12 +18,12 @@ const postsService = {
       });
   },
   
-  getPost(db, id) {
-    return db
-      .select('*')
-      .from('posts')
-      .where('id', id);
+  deletePost(db, id) {
+    return db('posts')
+      .where({ id })
+      .del();
   }
+
 };
 
 module.exports = postsService;

@@ -29,7 +29,7 @@ userRoutes
               };
 
               return userService.insertUser(knex, newUser)
-                .then(user => {
+                .then(user => {              
                   res
                     .status(201)
                     .json(userService.serializeUser(user));
