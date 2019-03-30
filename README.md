@@ -25,9 +25,13 @@ POST: `/api/auth/login`
 
 About
 =====
-This api uses Express "https://expressjs.com"
 
-framework and pg database "https://www.postgresql.org"
+## Built With
+node "https://nodejs.org"
+
+Express "https://expressjs.com"
+
+pg database "https://www.postgresql.org"
 
 image hosting from "https://cloudinary.com".
 

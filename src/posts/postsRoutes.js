@@ -46,6 +46,19 @@ postsRoutes
     postsService.deletePost(knex, id)
       .then(id => {
         res.status(200).send({ id });
+      })
+      .catch(next);
+  })
+  .patch(bodyParser, (req, res, next) => {
+    const { newPost, id } = req.body;
+    const knex = req.app.get('db');
+    const editedPost = {
+      title: newPost.title,
+      content: newPost.content
+    };
+    postsService.editPost(knex, editedPost, id)
+      .then(post => {
+        res.status(201).send(post);
       });
   });
 

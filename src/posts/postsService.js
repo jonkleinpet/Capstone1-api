@@ -22,6 +22,13 @@ const postsService = {
     return db('posts')
       .where({ id })
       .del();
+  },
+
+  editPost(db, editedPost, id) {
+    return db('posts')
+      .where({ id })
+      .update({ editedPost })
+      .returning('*');
   }
 
 };
