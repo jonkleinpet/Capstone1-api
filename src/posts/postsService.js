@@ -24,11 +24,13 @@ const postsService = {
       .del();
   },
 
-  editPost(db, editedPost, id) {
+  editPost(db, post, id) {
     return db('posts')
       .where({ id })
-      .update({ editedPost })
-      .returning('*');
+      .update({
+        title: post.title,
+        content: post.content
+      }, ['*']);
   }
 
 };

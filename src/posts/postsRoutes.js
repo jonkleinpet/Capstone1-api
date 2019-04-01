@@ -50,7 +50,8 @@ postsRoutes
       .catch(next);
   })
   .patch(bodyParser, (req, res, next) => {
-    const { content, title, id } = req.body;
+    const { content, title } = req.body;
+    const { id } = req.params;
     const knex = req.app.get('db');
     console.log(req.body);
     const editedPost = {
